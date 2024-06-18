@@ -1,0 +1,34 @@
+{
+  "name": "react-data-table-and-ui-components-ts",
+  "version": "1.0.0",
+  "description": "npm package for dataTable and ui components",
+  "main": "lib/index.js",
+  "types": "index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PaFonBu/react-datatable-and-ui-components-ts.git"
+  },
+  "keywords": [
+    "react",
+    "dataTable",
+    "ui"
+  ],
+  "author": "pafonbu@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/PaFonBu/react-datatable-and-ui-components-ts/issues"
+  },
+  "homepage": "https://github.com/PaFonBu/react-datatable-and-ui-components-ts#readme",
+  "devDependencies": {
+    "typescript": "^5.4.5"
+  },
+  "files": [
+    "lib/**/*"
+  ],
+  "peerDependencies": {
+    "react": "^18.3.1"
+  }
+}
