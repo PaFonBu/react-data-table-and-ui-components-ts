@@ -23,13 +23,15 @@
     "url": "https://github.com/PaFonBu/react-data-table-and-ui-components-ts/issues"
   },
   "homepage": "https://github.com/PaFonBu/react-data-table-and-ui-components-ts#readme",
-  "devDependencies": {
-    "typescript": "^5.4.5"
-  },
   "files": [
     "lib/**/*"
   ],
   "peerDependencies": {
     "react": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.7",
+    "@types/react": "^18.3.3",
+    "typescript": "^5.4.5"
   }
 }
