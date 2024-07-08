@@ -5,6 +5,7 @@ import { Checkbox } from "../npm-package/src/components/ui/Checkbox.ui";
 import { Spinner } from "../npm-package/src/components/ui/Spinner.ui";
 import { TextDisplay } from "../npm-package/src/components/ui/TextDisplay.ui";
 import styled from "styled-components";
+import { Dropdown } from "../npm-package/src/components/ui/Dropdown.ui";
 
 export const UI: React.FC = () => (
   <>
@@ -54,11 +55,18 @@ export const UI: React.FC = () => (
         <Checkbox label="Radio 3" type="radio" name="1" />
       </StyledCol>
     </StyledRow>
-
     <h3>Button</h3>
-    <Button variant="primary">Button</Button>
-    <Button variant="secondary">Button</Button>
-    <Button variant="tertiary">Button</Button>
+    <Button variant="primary">Button primary</Button>
+    <Button variant="secondary">Button secondary</Button>
+    <Button variant="tertiary">Button tertiary</Button>
+    <h3>Dropdown</h3>
+    <Dropdown
+      buttonContent={<Button variant="primary">Dropdown</Button>}
+      options={[
+        { onClick: () => alert("One selected"), label: "One" },
+        { onClick: () => alert("two selected"), label: "Two" },
+      ]}
+    />
     <h3>Spinner</h3>
     <Spinner />
     <h3>Text display</h3>
