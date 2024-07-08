@@ -9,9 +9,9 @@ export const Layout: React.FC = () => {
     <StyledContainer>
       <h1>React data table and ui components</h1>
       <StyledNavigation>
-        <Button onClick={() => navigate("/")}>Home</Button>
-        <Button onClick={() => navigate("/data-table")}>Data table</Button>
-        <Button onClick={() => navigate("/ui")}>UI</Button>
+        <Button size="lg" onClick={() => navigate("/")}>Home</Button>
+        <Button size="lg" onClick={() => navigate("/data-table")}>Data table</Button>
+        <Button size="lg" onClick={() => navigate("/ui")}>UI</Button>
       </StyledNavigation>
       <StyledContent>
         <Outlet />

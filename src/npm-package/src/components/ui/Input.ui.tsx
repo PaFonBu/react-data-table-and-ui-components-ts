@@ -130,7 +130,6 @@ const StyledInput = styled.input`
   box-sizing: border-box;
   display: block;
   width: 100%;
-  --background-color: #47556b;
   background-color: var(--background-color, inherit);
   padding-top: 0.5rem;
   padding-inline-start: 0.625rem;
