@@ -42,7 +42,19 @@ export const UI: React.FC = () => (
       ]}
     />
     <h3>Checkbox</h3>
-    <Checkbox label="Label" />
+    <StyledRow>
+      <StyledCol>
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+        <Checkbox label="Checkbox 3" />
+      </StyledCol>
+      <StyledCol>
+        <Checkbox label="Radio 1" type="radio" name="1" />
+        <Checkbox label="Radio 2" type="radio" name="1" />
+        <Checkbox label="Radio 3" type="radio" name="1" />
+      </StyledCol>
+    </StyledRow>
+
     <h3>Button</h3>
     <Button variant="primary">Button</Button>
     <Button variant="secondary">Button</Button>

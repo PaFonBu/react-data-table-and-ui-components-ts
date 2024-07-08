@@ -183,7 +183,7 @@ const StyledInput = styled.input`
   }
 `;
 
-export interface InputProps
+interface InputProps
   extends React.DetailedHTMLProps<
     React.InputHTMLAttributes<HTMLInputElement>,
     HTMLInputElement

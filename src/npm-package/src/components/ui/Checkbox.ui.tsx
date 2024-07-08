@@ -1,31 +1,45 @@
 import styled from "styled-components";
-import { InputProps } from "./Input.ui";
 
 export const Checkbox: React.FC<CheckboxProps> = ({
-  className,
   label,
-  containerClassName,
+  styles,
   type,
   ...props
 }) => {
   return (
-    <div className={`flex gap-2 items-center ${containerClassName ?? ""}`}>
+    <StyledContainer className={`${styles?.container ?? ""}`}>
       {label}
       <StyledCheckbox
-        className={`shrink-0 h-8 w-8  ${className ?? ""}`}
+        className={`${styles?.checkbox ?? ""}`}
         type={type ?? "checkbox"}
         {...props}
       />
-    </div>
+    </StyledContainer>
   );
 };
 
-const StyledCheckbox = styled.input`
-  clip-path: circle(46% at 50% 50%);
+const StyledContainer = styled.label`
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 `;
 
-interface CheckboxProps extends InputProps {
+const StyledCheckbox = styled.input`
+  clip-path: circle(46% at 50% 50%);
+  flex-shrink: 0;
+  height: 2rem;
+  width: 2rem;
+`;
+
+interface CheckboxProps
+  extends React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  > {
   label?: string;
-  containerClassName?: string;
-  type?: "checkbox" | "radial";
+  styles?: {
+    container?: string;
+    checkbox?: string;
+  };
+  type?: "checkbox" | "radio";
 }
