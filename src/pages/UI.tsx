@@ -56,9 +56,58 @@ export const UI: React.FC = () => (
       </StyledCol>
     </StyledRow>
     <h3>Button</h3>
-    <Button variant="primary">Button primary</Button>
-    <Button variant="secondary">Button secondary</Button>
-    <Button variant="tertiary">Button tertiary</Button>
+    <StyledRow>
+      <StyledCol>
+        <Button variant="primary">Primary</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="secondary">Secondary</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="tertiary">Tertiary</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="success">Success</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="info">Info</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="warning">Warning</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="danger">Danger</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="primary" disabled>Disabled</Button>
+      </StyledCol>
+    </StyledRow>
+    <StyledRow>
+      <StyledCol>
+        <Button variant="primary" outline>Primary</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="secondary" outline>Secondary</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="tertiary" outline>Tertiary</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="success" outline>Success</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="info" outline>Info</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="warning" outline>Warning</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="danger" outline>Danger</Button>
+      </StyledCol>
+      <StyledCol>
+        <Button variant="primary" outline disabled>Disabled</Button>
+      </StyledCol>
+    </StyledRow>
     <h3>Dropdown</h3>
     <Dropdown
       buttonContent={<Button variant="primary">Dropdown</Button>}

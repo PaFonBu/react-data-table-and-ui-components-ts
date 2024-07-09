@@ -92,13 +92,13 @@ const StyledError = styled.div`
   border-bottom-right-radius: 0.5rem;
   border-bottom-left-radius: 0.5rem;
 
-  border-bottom: 2px solid var(--primary-color, ${colors.primary});
+  border-bottom: 2px solid var(--danger-color, ${colors.danger});
 
   text-align: end;
   font-size: 0.75rem;
   line-height: 1rem;
 
-  color: var(--primary-color, ${colors.primary});
+  color: var(--danger-color, ${colors.danger});
 
   overflow: hidden;
   text-overflow: ellipsis;
@@ -110,7 +110,7 @@ const StyledError = styled.div`
 const StyledIcon = styled(ErrorIcon)`
   box-sizing: border-box;
   position: absolute;
-  color: var(--primary-color, ${colors.primary});
+  color: var(--danger-color, ${colors.danger});
 
   z-index: 10;
 
