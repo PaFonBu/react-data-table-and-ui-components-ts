@@ -8,53 +8,8 @@ import styled from "styled-components";
 import { Dropdown } from "../npm-package/src/components/ui/Dropdown.ui";
 
 export const UI: React.FC = () => (
-  <>
-    <h2>UI</h2>
-    <h3>Input</h3>
-    <StyledRow>
-      <StyledCol>
-        <h4>Text</h4>
-        <Input />
-        <Input label="Label" />
-      </StyledCol>
-      <StyledCol>
-        <h4>Number</h4>
-        <Input type="number" />
-        <Input type="number" label="Label" />
-      </StyledCol>
-      <StyledCol>
-        <h4>Error</h4>
-        <Input error="Error" />
-        <Input label="Label" error="Error" />
-      </StyledCol>
-    </StyledRow>
-    <h3>Select</h3>
-    <Select
-      options={[
-        { value: "1", label: "One" },
-        { value: "2", label: "Two" },
-      ]}
-    />
-    <Select
-      label="Label"
-      options={[
-        { value: "1", label: "One" },
-        { value: "2", label: "Two" },
-      ]}
-    />
-    <h3>Checkbox</h3>
-    <StyledRow>
-      <StyledCol>
-        <Checkbox label="Checkbox 1" />
-        <Checkbox label="Checkbox 2" />
-        <Checkbox label="Checkbox 3" />
-      </StyledCol>
-      <StyledCol>
-        <Checkbox label="Radio 1" type="radio" name="1" />
-        <Checkbox label="Radio 2" type="radio" name="1" />
-        <Checkbox label="Radio 3" type="radio" name="1" />
-      </StyledCol>
-    </StyledRow>
+  <StyledUI>
+    <h2 className="center">UI</h2>
     <h3>Button</h3>
     <StyledRow>
       <StyledCol>
@@ -79,33 +34,94 @@ export const UI: React.FC = () => (
         <Button variant="danger">Danger</Button>
       </StyledCol>
       <StyledCol>
-        <Button variant="primary" disabled>Disabled</Button>
+        <Button variant="primary" disabled>
+          Disabled
+        </Button>
       </StyledCol>
     </StyledRow>
     <StyledRow>
       <StyledCol>
-        <Button variant="primary" outline>Primary</Button>
+        <Button variant="primary" outline>
+          Primary
+        </Button>
       </StyledCol>
       <StyledCol>
-        <Button variant="secondary" outline>Secondary</Button>
+        <Button variant="secondary" outline>
+          Secondary
+        </Button>
       </StyledCol>
       <StyledCol>
-        <Button variant="tertiary" outline>Tertiary</Button>
+        <Button variant="tertiary" outline>
+          Tertiary
+        </Button>
       </StyledCol>
       <StyledCol>
-        <Button variant="success" outline>Success</Button>
+        <Button variant="success" outline>
+          Success
+        </Button>
       </StyledCol>
       <StyledCol>
-        <Button variant="info" outline>Info</Button>
+        <Button variant="info" outline>
+          Info
+        </Button>
       </StyledCol>
       <StyledCol>
-        <Button variant="warning" outline>Warning</Button>
+        <Button variant="warning" outline>
+          Warning
+        </Button>
       </StyledCol>
       <StyledCol>
-        <Button variant="danger" outline>Danger</Button>
+        <Button variant="danger" outline>
+          Danger
+        </Button>
       </StyledCol>
       <StyledCol>
-        <Button variant="primary" outline disabled>Disabled</Button>
+        <Button variant="primary" outline disabled>
+          Disabled
+        </Button>
+      </StyledCol>
+    </StyledRow>
+    <h3>Input</h3>
+    <StyledRow>
+      <StyledCol>
+        <h4 className="m-0">Text</h4>
+        <Input />
+        <Input label="Label" />
+      </StyledCol>
+      <StyledCol>
+        <h4 className="m-0">Number</h4>
+        <Input type="number" />
+        <Input type="number" label="Label" />
+      </StyledCol>
+      <StyledCol>
+        <h4 className="m-0">Error</h4>
+        <Input error="The value is invalid" />
+        <Input label="Label" error="The value is invalid" />
+      </StyledCol>
+    </StyledRow>
+    <h3>Select</h3>
+    <Select
+      options={[
+        { value: "1", label: "One" },
+        { value: "2", label: "Two" },
+      ]}
+    />
+    <Select
+      label="Label"
+      options={[
+        { value: "1", label: "One" },
+        { value: "2", label: "Two" },
+      ]}
+    />
+    <h3>Text display</h3>
+    <TextDisplay label="Label" value="value" />
+    <StyledRow>
+      <StyledCol>
+        <h3>Checkbox</h3>
+        <Checkbox label="Checkbox 1" />
+        <Checkbox label="Checkbox 2" />
+        <Checkbox label="Checkbox 3" />
+        <Checkbox />
       </StyledCol>
     </StyledRow>
     <h3>Dropdown</h3>
@@ -118,9 +134,7 @@ export const UI: React.FC = () => (
     />
     <h3>Spinner</h3>
     <Spinner />
-    <h3>Text display</h3>
-    <TextDisplay label="Label" value="value" />
-  </>
+  </StyledUI>
 );
 
 const StyledRow = styled.div`
@@ -136,3 +150,18 @@ const StyledCol = styled.div`
   gap: 1rem;
   width: 100%;
 `;
+
+const StyledUI = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  .center {
+    align-self: center;
+  }
+  .m-0 {
+    margin: 0;
+  }
+`;
+
+// TODO: Add radio
+// TODO: Add switch

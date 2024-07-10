@@ -36,4 +36,9 @@ const StyledNavigation = styled.div`
 const StyledContainer = styled.div`
   margin-left: 2rem;
   margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 `;
