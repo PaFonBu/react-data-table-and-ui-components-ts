@@ -6,7 +6,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   styles,
   ...props
 }) => (
-  <StyledContainer className={`${styles?.container ?? ""}`}>
+  <StyledContainer
+    className={`${props.disabled ? "disabled " : ""}${styles?.container ?? ""}`}
+  >
     {label}
     <StyledInput
       className={`${styles?.checkbox ?? ""}`}
@@ -24,25 +26,26 @@ const StyledContainer = styled.label`
   display: inline-block;
   width: fit-content;
   display: flex;
-  gap: 0.5rem;
+  gap: 1.5rem;
   align-items: center;
   justify-content: space-between;
+  color: var(--text-color, ${colors.text});
+  &.disabled {
+    color: var(--disabled-color, ${colors.disabled});
+  }
 `;
 
 const StyledCheck = styled.svg`
   position: absolute;
   width: 2rem;
   height: 2rem;
-  background: var(--background-color, ${colors.background});
+  border: solid 2px var(--secondary-color, ${colors.secondary});
+  background: var(--background-color, inherit);
   top: 0;
   inset-inline-end: 0px;
   border-radius: 0.5rem;
-  fill: var(--background-color, ${colors.background});
+  fill: transparent;
   user-select: none;
-
-  ${StyledContainer}:hover & {
-    filter: brightness(1.25);
-  }
 `;
 
 const StyledInput = styled.input`
@@ -50,14 +53,20 @@ const StyledInput = styled.input`
   flex-shrink: 0;
   height: 2rem;
   width: 2rem;
-  margin: 0;
+  margin: 2px;
   opacity: 0;
   z-index: -1;
-
   &:checked ~ ${StyledCheck} {
     background: var(--primary-color, ${colors.primary});
     fill: var(--text-color, ${colors.text});
-    opacity: 1;
+    border: solid 2px var(--primary-color, ${colors.primary});
+  }
+  &:disabled ~ ${StyledCheck} {
+    pointer-events: none;
+    opacity: 0.6;
+  }
+  &:hover&:not(:disabled) ~ ${StyledCheck} {
+    filter: brightness(1.25);
   }
 `;
 

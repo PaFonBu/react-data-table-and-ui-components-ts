@@ -90,7 +90,7 @@ const StyledIcon = styled(CaretDown)`
 const StyledOption = styled.option`
   box-sizing: border-box;
   color: var(--text-color, ${colors.text});
-  background-color: var(--background-color, inherit);
+  background-color: var(--background-color, ${colors.background});
 `;
 
 const StyledSelect = styled.select`
@@ -107,7 +107,7 @@ const StyledSelect = styled.select`
   color: var(--text-color, ${colors.text});
   font-size: 1rem;
   line-height: 1.5rem;
-  border: 0px solid var(--text-color, ${colors.secondary});
+  border: 0px solid var(--secondary-color, ${colors.secondary});
   border-bottom-width: 2px;
   appearance: none;
   &:focus {

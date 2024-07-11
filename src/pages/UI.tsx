@@ -98,29 +98,60 @@ export const UI: React.FC = () => (
         <Input error="The value is invalid" />
         <Input label="Label" error="The value is invalid" />
       </StyledCol>
+      <StyledCol>
+        <h4 className="m-0">Text</h4>
+        <Input disabled />
+        <Input label="Label" disabled />
+      </StyledCol>
     </StyledRow>
     <h3>Select</h3>
-    <Select
-      options={[
-        { value: "1", label: "One" },
-        { value: "2", label: "Two" },
-      ]}
-    />
-    <Select
-      label="Label"
-      options={[
-        { value: "1", label: "One" },
-        { value: "2", label: "Two" },
-      ]}
-    />
+    <StyledRow>
+      <StyledCol>
+        <Select
+          options={[
+            { value: "1", label: "One" },
+            { value: "2", label: "Two" },
+          ]}
+        />
+        <Select
+          label="Label"
+          options={[
+            { value: "1", label: "One" },
+            { value: "2", label: "Two" },
+          ]}
+        />
+      </StyledCol>
+      <StyledCol>
+        <Select
+          options={[
+            { value: "1", label: "One" },
+            { value: "2", label: "Two" },
+          ]}
+          disabled
+        />
+        <Select
+          label="Label"
+          options={[
+            { value: "1", label: "One" },
+            { value: "2", label: "Two" },
+          ]}
+          disabled
+        />
+      </StyledCol>
+    </StyledRow>
     <h3>Text display</h3>
-    <TextDisplay label="Label" value="value" />
+    <StyledRow>
+      <StyledCol>
+        <TextDisplay value="value" />
+        <TextDisplay label="Label" value="value" />
+      </StyledCol>
+    </StyledRow>
     <StyledRow>
       <StyledCol>
         <h3>Checkbox</h3>
         <Checkbox label="Checkbox 1" />
         <Checkbox label="Checkbox 2" />
-        <Checkbox label="Checkbox 3" />
+        <Checkbox label="Checkbox 3" disabled />
         <Checkbox />
       </StyledCol>
     </StyledRow>

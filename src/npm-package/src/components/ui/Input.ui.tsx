@@ -82,7 +82,6 @@ const StyledError = styled.div`
   padding-right: 0.5rem;
   padding-left: 0.5rem;
 
-  --background-color: #47556b;
   background-color: var(--background-color, inherit);
 
   bottom: -0.5rem;
@@ -139,10 +138,9 @@ const StyledInput = styled.input`
   color: var(--text-color, ${colors.text});
   font-size: 1rem;
   line-height: 1.5rem;
-  border: 0px solid var(--text-color, ${colors.secondary});
+  border: 0px solid var(--secondary-color, ${colors.secondary});
   border-bottom-width: 2px;
   appearance: none;
-
   &:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;
