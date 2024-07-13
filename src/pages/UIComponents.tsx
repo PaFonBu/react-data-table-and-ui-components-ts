@@ -7,9 +7,9 @@ import { TextDisplay } from "../npm-package/src/components/ui/TextDisplay.ui";
 import styled from "styled-components";
 import { Dropdown } from "../npm-package/src/components/ui/Dropdown.ui";
 
-export const UI: React.FC = () => (
+export const UIComponents: React.FC = () => (
   <StyledUI>
-    <h2 className="center">UI</h2>
+    <h2 className="center">UI Components</h2>
     <h3>Button</h3>
     <StyledRow>
       <StyledCol>
