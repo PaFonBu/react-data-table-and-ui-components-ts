@@ -110,6 +110,7 @@ const StyledSelect = styled.select`
   border: 0px solid var(--secondary-color, ${colors.secondary});
   border-bottom-width: 2px;
   appearance: none;
+  cursor: pointer;
   &:focus {
     outline: 2px solid transparent;
     outline-offset: 2px;

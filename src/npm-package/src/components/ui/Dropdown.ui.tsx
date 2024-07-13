@@ -1,10 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 import { Button } from "./Button.ui";
+import styled from "styled-components";
+import { colors } from "../../colors";
 
 export const Dropdown: React.FC<DropdownProps> = ({
   buttonContent,
   buttonSize = "md",
   options,
+  position = "bottom-right",
   defaultSelectedOption,
   styles,
 }) => {
@@ -31,63 +34,136 @@ export const Dropdown: React.FC<DropdownProps> = ({
   }, [ref]);
 
   return (
-    <div ref={ref} className={`relative ${styles?.container ?? ""}`}>
-      <Button
-        className={`block ${styles?.button ?? ""}`}
+    <StyledContainer ref={ref} className={`${styles?.container ?? ""}`}>
+      <StyledButton
+        className={`${styles?.button ?? ""}`}
         onClick={() => setIsDropdownVisible(!isDropdownVisible)}
         size={buttonSize}
       >
         {buttonContent}
-      </Button>
+      </StyledButton>
       {isDropdownVisible && (
-        <ul
-          className={`
-          absolute
-          p-1
-          z-20
-          right-0
-          ${
-            buttonSize === "sm"
-              ? "top-[2.1rem]"
-              : buttonSize === "md"
-              ? "top-[2.6rem]"
-              : "top-[3.1rem]"
-          }
-          rounded-lg
-          shadow
-          bg-red-400
-          ${styles?.dropdown ?? ""}`}
+        <StyledList
+          className={`${buttonSize} ${position} ${styles?.dropdown ?? ""}`}
         >
           {options.map(({ label, onClick }, index) => (
-            <li
+            <StyledListItem
               key={index}
               className={`
-                px-2
-                cursor-pointer
-                ${selectedOption === index ? "bg-red-500" : "bg-red-400"}
-                hover:bg-red-500
-                rounded-lg
-                whitespace-nowrap
-                ${styles?.option ?? ""}`}
+                ${selectedOption === index ? "selected " : ""}
+                ${styles?.option ?? ""}
+              `}
               onClick={() => {
                 onClick();
                 setSelectedOption(index);
               }}
             >
               {label}
-            </li>
+            </StyledListItem>
           ))}
-        </ul>
+        </StyledList>
       )}
-    </div>
+    </StyledContainer>
   );
 };
 
+const StyledContainer = styled.div`
+  position: relative;
+  width: fit-content;
+`;
+
+const StyledButton = styled(Button)`
+  box-sizing: border-box;
+  display: block;
+`;
+
+const StyledList = styled.ul`
+  box-sizing: border-box;
+  position: absolute;
+  padding: 0.25rem;
+  z-index: 20;
+  margin: 0;
+  border-radius: 0.5rem;
+  box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+  background-color: var(--primary-color, ${colors.primary});
+  color: var(--text-color, ${colors.text});
+  font-size: 1rem;
+  line-height: 1.5rem;
+  &.sm.top-right {
+    bottom: 2.2rem;
+    left: 0;
+  }
+  &.md.top-right {
+    bottom: 2.7rem;
+    left: 0;
+  }
+  &.lg.top-right {
+    bottom: 3.5rem;
+    left: 0;
+  }
+  &.sm.bottom-right {
+    top: 2.2rem;
+    left: 0;
+  }
+  &.md.bottom-right {
+    top: 2.7rem;
+    left: 0;
+  }
+  &.lg.bottom-right {
+    top: 3.5rem;
+    left: 0;
+  }
+  &.sm.top-left {
+    bottom: 2.2rem;
+    right: 0;
+  }
+  &.md.top-left {
+    bottom: 2.7rem;
+    right: 0;
+  }
+  &.lg.top-left {
+    bottom: 3.5rem;
+    right: 0;
+  }
+  &.sm.bottom-left {
+    top: 2.2rem;
+    right: 0;
+  }
+  &.md.bottom-left {
+    top: 2.7rem;
+    right: 0;
+  }
+  &.lg.bottom-left {
+    top: 3.5rem;
+    right: 0;
+  }
+`;
+
+const StyledListItem = styled.li`
+  box-sizing: border-box;
+  display: block;
+  padding-right: 0.5rem;
+  padding-left: 0.5rem;
+  cursor: pointer;
+  background-color: var(--primary-color, ${colors.primary});
+  border-radius: 0.5rem;
+  white-space: nowrap;
+  &selected {
+    background-color: var(--primary-light-color, ${colors.secondary});
+    color: var(--primary-color, ${colors.primary});
+  }
+  &:hover {
+    background-color: var(--primary-light-color, ${colors.secondary});
+    color: var(--primary-color, ${colors.primary});
+  }
+`;
+
 interface DropdownProps {
-  buttonContent: JSX.Element;
+  buttonContent: JSX.Element | string;
   buttonSize?: "sm" | "md" | "lg";
   options: { label: string; onClick: () => void }[];
   defaultSelectedOption?: number;
+  position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
   styles?: {
     container?: string;
     button?: string;

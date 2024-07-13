@@ -30,6 +30,7 @@ const StyledContainer = styled.label`
   align-items: center;
   justify-content: space-between;
   color: var(--text-color, ${colors.text});
+  cursor: pointer;
   &.disabled {
     color: var(--disabled-color, ${colors.disabled});
   }

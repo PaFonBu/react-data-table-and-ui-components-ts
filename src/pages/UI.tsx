@@ -156,13 +156,63 @@ export const UI: React.FC = () => (
       </StyledCol>
     </StyledRow>
     <h3>Dropdown</h3>
-    <Dropdown
-      buttonContent={<Button variant="primary">Dropdown</Button>}
-      options={[
-        { onClick: () => alert("One selected"), label: "One" },
-        { onClick: () => alert("two selected"), label: "Two" },
-      ]}
-    />
+    <StyledRow>
+      <StyledCol>
+        <Dropdown
+          buttonContent="Dropdown bottom-right"
+          options={[
+            { onClick: () => alert("One selected"), label: "One" },
+            { onClick: () => alert("two selected"), label: "Two" },
+          ]}
+          position="bottom-right"
+        />
+        <Dropdown
+          buttonContent="Dropdown bottom-left"
+          options={[
+            { onClick: () => alert("One selected"), label: "One" },
+            { onClick: () => alert("two selected"), label: "Two" },
+          ]}
+          position="bottom-left"
+        />
+        <Dropdown
+          buttonContent="Dropdown top-right"
+          options={[
+            { onClick: () => alert("One selected"), label: "One" },
+            { onClick: () => alert("two selected"), label: "Two" },
+          ]}
+          position="top-right"
+        />
+        <Dropdown
+          buttonContent="Dropdown top-left"
+          options={[
+            { onClick: () => alert("One selected"), label: "One" },
+            { onClick: () => alert("two selected"), label: "Two" },
+          ]}
+          position="top-left"
+        />
+      </StyledCol>
+      <StyledCol>
+        <Dropdown
+          buttonContent="Dropdown sm"
+          options={[
+            { onClick: () => alert("One selected"), label: "One" },
+            { onClick: () => alert("two selected"), label: "Two" },
+          ]}
+          buttonSize="sm"
+        />
+      </StyledCol>
+      <StyledCol>
+        <Dropdown
+          buttonContent="Dropdown lg"
+          options={[
+            { onClick: () => alert("One selected"), label: "One" },
+            { onClick: () => alert("two selected"), label: "Two" },
+          ]}
+          buttonSize="lg"
+        />
+      </StyledCol>
+    </StyledRow>
+
     <h3>Spinner</h3>
     <Spinner />
   </StyledUI>

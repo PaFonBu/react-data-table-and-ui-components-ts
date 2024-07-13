@@ -31,6 +31,7 @@ const StyledButton = styled.button`
   padding-left: 1rem;
   border-radius: 0.5rem;
   font-weight: 700;
+  cursor: pointer;
   &:hover {
     ${(props) => (props.disabled ? "" : "filter: brightness(1.25);")}
   }
