@@ -25,3 +25,5 @@ dist-ssr
 
 # npm package
 /src/npm-package/lib
+
+.env
