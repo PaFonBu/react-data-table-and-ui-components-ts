@@ -7,8 +7,8 @@ import {
   SearchInputOptions,
 } from "./Header.dataTable";
 import { Footer, FooterStyles } from "./Footer.dataTable";
-import { TableHeader } from "./TableHeader.dataTable";
-import { ColumnFilter } from "./ColumnFilter.dataTable";
+import { ColumnHeader, ColumnHeaderStyles } from "./ColumnHeader.dataTable";
+import { ColumnFilter, FilterStyles } from "./ColumnFilter.dataTable";
 import { sortRows } from "../../utils/dataTable/sort";
 import { filterRows, searchBarFilter } from "../../utils/dataTable/filter";
 import {
@@ -16,6 +16,8 @@ import {
   Filter,
   SortingConfig,
 } from "../../ts/interfaces/dataTable.interface";
+import styled from "styled-components";
+import { Row } from "./Row.dataTable";
 
 export const DataTable = <T,>({
   columns,
@@ -73,7 +75,7 @@ export const DataTable = <T,>({
   useEffect(() => setCurrentPage(1), [searchInput]);
 
   return (
-    <div className={`flex flex-col gap-1 ${styles?.container ?? ""}`}>
+    <StyledContainer className={styles?.container ?? ""}>
       <Header
         searchInput={searchInput}
         setSearchInput={setSearchInput}
@@ -83,25 +85,19 @@ export const DataTable = <T,>({
         styles={styles?.header}
       />
       <div className={styles?.tableContainer ?? ""}>
-        <table className={`w-full border-hidden ${styles?.table ?? ""}`}>
+        <StyledTable className={styles?.table ?? ""}>
           <thead>
-            <tr className={styles?.tableHeaders ?? ""}>
+            <tr className={styles?.columnHeaders ?? ""}>
               {columnsToDisplay.map((column, index) => (
-                <th
-                  className={`
-                    relative
-                    last:rounded-tr-lg first:rounded-tl-lg
-                    ${styles?.tableHeader ?? ""}`}
+                <ColumnHeader
                   key={index}
-                >
-                  <TableHeader
-                    column={column}
-                    sort={sort}
-                    setSort={setSort}
-                    isMultiSortEnabled={options?.isMultiSortEnabled}
-                    isSortEnabled={column.options?.sort}
-                  />
-                </th>
+                  column={column}
+                  sort={sort}
+                  setSort={setSort}
+                  isMultiSortEnabled={options?.isMultiSortEnabled}
+                  isSortEnabled={column.options?.sort}
+                  styles={styles?.columnHeader}
+                />
               ))}
             </tr>
             {columnsToDisplay.some(
@@ -109,23 +105,15 @@ export const DataTable = <T,>({
             ) && (
               <tr>
                 {columnsToDisplay.map((column, index) => (
-                  <td
-                    className={`bg-red-300 ${styles?.filter ?? ""}`}
+                  <ColumnFilter<T>
                     key={index}
-                  >
-                    <ColumnFilter<T>
-                      filter={
-                        filters.find(
-                          (filter) => filter.field === column.field
-                        ) || null
-                      }
-                      setFilters={setFilters}
-                    />
-                    {
-                      filters.find((filter) => filter.field === column.field)
-                        ?.value
+                    filter={
+                      filters.find((filter) => filter.field === column.field) ||
+                      null
                     }
-                  </td>
+                    setFilters={setFilters}
+                    styles={styles?.filter}
+                  />
                 ))}
               </tr>
             )}
@@ -135,32 +123,18 @@ export const DataTable = <T,>({
               ? paginatedRows
               : rowsToDisplay
             ).map((row, rowIndex) => (
-              <tr
-                className={`bg-slate-700 odd:bg-slate-600 ${
-                  styles?.tableRow ?? ""
-                }`}
+              <Row
+                row={row}
+                columns={columns}
                 key={rowIndex}
-              >
-                {!!row &&
-                  columns
-                    .filter((column) => !column.hidden)
-                    // .map((column) => column.field)
-                    .map(({ field, type }, propIndex) => (
-                      <td
-                        className={`px-6 py-4 ${styles?.tableCell ?? ""}`}
-                        key={propIndex}
-                      >
-                        {type === "boolean"
-                          ? (row[field as keyof T] as boolean)
-                            ? "true"
-                            : "false"
-                          : (row[field as keyof T] as string | number)}
-                      </td>
-                    ))}
-              </tr>
+                styles={{
+                  tableRow: styles?.tableRow,
+                  tableCell: styles?.tableCell,
+                }}
+              />
             ))}
           </tbody>
-        </table>
+        </StyledTable>
         {!options?.paginationSelect?.isDisabled && (
           <Footer
             numberOfRows={rowsToDisplay.length}
@@ -172,9 +146,20 @@ export const DataTable = <T,>({
           />
         )}
       </div>
-    </div>
+    </StyledContainer>
   );
 };
+
+const StyledContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+`;
+
+const StyledTable = styled.table`
+  width: 100%;
+  border-style: hidden;
+`;
 
 interface DataTableProps<T> {
   columns: Columns<T>[];
@@ -192,13 +177,13 @@ interface DataTableProps<T> {
     container?: string;
     table?: string;
     tableContainer?: string;
-    tableHeaders?: string;
-    tableHeader?: string;
+    columnHeaders?: string;
+    columnHeader?: ColumnHeaderStyles;
     tableCell?: string;
     tableRow?: string;
     header?: HeaderStyles;
     footer?: FooterStyles;
-    filter?: string;
+    filter?: FilterStyles;
   };
 }
 

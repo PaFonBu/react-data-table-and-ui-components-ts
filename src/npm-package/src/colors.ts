@@ -1,5 +1,6 @@
 export const colors = {
-  background: "#47556b", // --background-color
+  background: "#334155", // --background-color
+  backgroundLight: "#47556b", // --background-color
   text: "#e2e8f0", // --text-color
   textLight: "#e2e8f0", // --text-color
   textDark: "#1e293b", // --text-color

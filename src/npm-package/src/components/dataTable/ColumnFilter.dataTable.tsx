@@ -1,14 +1,16 @@
 import { useEffect, useState } from "react";
-import { Dropdown } from "../ui/Dropdown.ui";
-import { Input } from "../ui/Input.ui";
-// import { Select } from "../ui/Select.ui";
+import { Dropdown, DropdownStyles } from "../ui/Dropdown.ui";
+import { Input, InputStyles } from "../ui/Input.ui";
 import { Filter as FilterIcon } from "../ui/icons/Filter.icon";
 import { filterOptionsByType } from "../../utils/dataTable/filter";
 import { Filter, FilterOption } from "../../ts/interfaces/dataTable.interface";
+import styled, { createGlobalStyle } from "styled-components";
+import { colors } from "../../colors";
 
 export const ColumnFilter = <T,>({
   filter,
   setFilters,
+  styles,
 }: ColumnFilterProps<T>) => {
   const [filterOption, setFilteredBy] = useState<{
     label: string;
@@ -56,17 +58,15 @@ export const ColumnFilter = <T,>({
   };
 
   return (
-    <>
-      <div
-        className={`
-          flex gap-2 content-evenly
-          ps-6 pe-2 py-1`}
-      >
+    <StyledTd className={styles?.td ?? ""}>
+      <GlobalStyle />
+      <StyledContainer className={styles?.container ?? ""}>
         <Input
           styles={{
-            container: `bg-slate-200 rounded-lg`,
-            input: "!text-slate-800 !border-slate-200",
-            label: "!text-slate-400",
+            ...styles?.input,
+            container: styles?.input?.container,
+            input: `input-input ${styles?.input?.input ?? ""}`,
+            label: `input-label ${styles?.input?.label ?? ""}`,
           }}
           label={filterOption.label}
           onChange={handleOnChangeFilter}
@@ -77,31 +77,76 @@ export const ColumnFilter = <T,>({
           value={filter.value ?? ""}
         />
         <Dropdown
-          buttonContent={<FilterIcon className="p-0 m-0" />}
+          buttonContent={<StyledFilterIcon />}
           options={filterOptionsByType
-            .filter((filterOptioByType) =>
-              filterOptioByType.type.includes(filter.type)
+            .filter((filterOptionByType) =>
+              filterOptionByType.type.includes(filter.type)
             )
-            .map((filterOptioByType) => ({
-              label: filterOptioByType.label,
+            .map((filterOptionByType) => ({
+              label: filterOptionByType.label,
               onClick: () =>
                 setFilteredBy({
-                  label: filterOptioByType.label,
-                  value: filterOptioByType.value,
+                  label: filterOptionByType.label,
+                  value: filterOptionByType.value,
                 }),
             }))}
           buttonSize="md"
           styles={{
-            container: "self-center",
-            button: "!px-2",
+            ...styles?.dropdown,
+            container: `dropdown-container ${
+              styles?.dropdown?.container ?? ""
+            }`,
+            button: `dropdown-button ${styles?.dropdown?.button ?? ""}`,
           }}
         />
-      </div>
-    </>
+      </StyledContainer>
+    </StyledTd>
   );
 };
+
+const StyledTd = styled.td`
+  background-color: var(--color-primary-light, ${colors.primaryLight});
+`;
+
+const GlobalStyle = createGlobalStyle`
+  .input-input:disabled {
+    border-color: var(--color-secondary, ${colors.secondary});
+    /* color: var(--color-text, ${colors.text}); TODO: remove date when All is selected*/
+  }
+  .input-label {
+    filter: brightness(140%);
+  }
+  .dropdown-container {
+    align-self: center;
+  }
+  .dropdown-button {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }`;
+
+const StyledContainer = styled.div`
+  display: flex;
+  gap: 0.5rem;
+  justify-content: space-evenly;
+  padding-inline-start: 1.5rem;
+  padding-inline-end: 0.5rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+`;
+
+const StyledFilterIcon = styled(FilterIcon)`
+  vertical-align: middle;
+`;
 
 interface ColumnFilterProps<T> {
   filter: Filter<T> | null;
   setFilters: React.Dispatch<React.SetStateAction<Filter<T>[]>>;
+  styles?: FilterStyles;
+}
+
+export interface FilterStyles {
+  td?: string;
+  container?: string;
+  input?: InputStyles;
+  dropdown?: DropdownStyles;
 }

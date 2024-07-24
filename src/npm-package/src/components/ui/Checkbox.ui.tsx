@@ -77,8 +77,10 @@ interface CheckboxProps
     HTMLInputElement
   > {
   label?: string;
-  styles?: {
-    container?: string;
-    checkbox?: string;
-  };
+  styles?: CheckboxStyles;
+}
+
+interface CheckboxStyles {
+  container?: string;
+  checkbox?: string;
 }

@@ -98,9 +98,11 @@ const StyledLabel = styled.div`
 interface TextDisplayProps {
   label?: string;
   value?: string | number | null;
-  styles?: {
-    container?: string;
-    value?: string;
-    label?: string;
-  };
+  styles?: TextDisplayStyles;
+}
+
+export interface TextDisplayStyles {
+  container?: string;
+  value?: string;
+  label?: string;
 }

@@ -188,10 +188,12 @@ interface InputProps
   > {
   error?: string | null;
   label?: string;
-  styles?: {
-    container?: string;
-    input?: string;
-    error?: string;
-    label?: string;
-  };
+  styles?: InputStyles;
+}
+
+export interface InputStyles {
+  container?: string;
+  input?: string;
+  error?: string;
+  label?: string;
 }

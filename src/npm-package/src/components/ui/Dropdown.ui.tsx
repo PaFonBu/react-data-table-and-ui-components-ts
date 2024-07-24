@@ -36,7 +36,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <StyledContainer ref={ref} className={`${styles?.container ?? ""}`}>
       <StyledButton
-        className={`${styles?.button ?? ""}`}
+        styles={{button: styles?.button ?? ""}}
         onClick={() => setIsDropdownVisible(!isDropdownVisible)}
         size={buttonSize}
       >
@@ -164,10 +164,12 @@ interface DropdownProps {
   options: { label: string; onClick: () => void }[];
   defaultSelectedOption?: number;
   position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";
-  styles?: {
-    container?: string;
-    button?: string;
-    dropdown?: string;
-    option?: string;
-  };
+  styles?: DropdownStyles;
+}
+
+export interface DropdownStyles {
+  container?: string;
+  button?: string;
+  dropdown?: string;
+  option?: string;
 }

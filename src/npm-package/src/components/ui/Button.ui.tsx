@@ -4,11 +4,12 @@ import { colors } from "../../colors";
 
 export const Button: React.FC<ButtonProps> = ({
   children,
-  className,
   variant,
   size,
   disabled,
   outline,
+  styles,
+  className,
   ...props
 }) => (
   <StyledButton
@@ -18,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
         ${size ? `${size} ` : "md "}
         ${disabled ? "disabled " : ""}
         ${className ?? ""}
+        ${styles?.button ?? ""}
       `}
     disabled={disabled}
     {...props}
@@ -152,4 +154,9 @@ interface ButtonProps
   size?: "lg" | "md" | "sm";
   disabled?: boolean;
   outline?: boolean;
+  styles?: ButtonStyles;
+}
+
+export interface ButtonStyles {
+  button?: string;
 }

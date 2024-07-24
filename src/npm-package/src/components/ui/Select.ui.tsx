@@ -157,11 +157,13 @@ interface SelectProps
   > {
   options: { value: string | number; label: string }[];
   label?: string;
-  styles?: {
-    container?: string;
-    select?: string;
-    label?: string;
-    option?: string;
-    icon?: string;
-  };
+  styles?: SelectStyles;
+}
+
+export interface SelectStyles {
+  container?: string;
+  select?: string;
+  label?: string;
+  option?: string;
+  icon?: string;
 }
