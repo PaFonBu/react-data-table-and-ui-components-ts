@@ -10,6 +10,7 @@ import { colors } from "../../colors";
 export const ColumnFilter = <T,>({
   filter,
   setFilters,
+  lastColumn,
   styles,
 }: ColumnFilterProps<T>) => {
   const [filterOption, setFilteredBy] = useState<{
@@ -64,9 +65,13 @@ export const ColumnFilter = <T,>({
         <Input
           styles={{
             ...styles?.input,
-            container: styles?.input?.container,
-            input: `input-input ${styles?.input?.input ?? ""}`,
-            label: `input-label ${styles?.input?.label ?? ""}`,
+            container: `data-table-column-filter-input-container ${styles?.input?.container}`,
+            input: `data-table-column-filter-input-input ${
+              styles?.input?.input ?? ""
+            }`,
+            label: `data-table-column-filter-input-label ${
+              styles?.input?.label ?? ""
+            }`,
           }}
           label={filterOption.label}
           onChange={handleOnChangeFilter}
@@ -78,6 +83,8 @@ export const ColumnFilter = <T,>({
         />
         <Dropdown
           buttonContent={<StyledFilterIcon />}
+          buttonSize="md"
+          buttonOutline
           options={filterOptionsByType
             .filter((filterOptionByType) =>
               filterOptionByType.type.includes(filter.type)
@@ -90,13 +97,15 @@ export const ColumnFilter = <T,>({
                   value: filterOptionByType.value,
                 }),
             }))}
-          buttonSize="md"
+          position={lastColumn ? "bottom-left" : "bottom-right"}
           styles={{
             ...styles?.dropdown,
-            container: `dropdown-container ${
+            container: `data-table-column-filter-dropdown-container ${
               styles?.dropdown?.container ?? ""
             }`,
-            button: `dropdown-button ${styles?.dropdown?.button ?? ""}`,
+            button: `data-table-column-filter-dropdown-button ${
+              styles?.dropdown?.button ?? ""
+            }`,
           }}
         />
       </StyledContainer>
@@ -109,38 +118,44 @@ const StyledTd = styled.td`
 `;
 
 const GlobalStyle = createGlobalStyle`
-  .input-input:disabled {
+  .data-table-column-filter-input-container {
+    flex-grow: 1;
+  }
+  .data-table-column-filter-input-input:disabled {
     border-color: var(--color-secondary, ${colors.secondary});
     /* color: var(--color-text, ${colors.text}); TODO: remove date when All is selected*/
   }
-  .input-label {
+  .data-table-column-filter-input-label {
     filter: brightness(140%);
   }
-  .dropdown-container {
+  .data-table-column-filter-dropdown-container {
     align-self: center;
   }
-  .dropdown-button {
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
+  .data-table-column-filter-dropdown-button {
+    padding-left: 0.25rem;
+    padding-right: 0rem;
+    border: 0 !important;
   }`;
 
 const StyledContainer = styled.div`
   display: flex;
-  gap: 0.5rem;
-  justify-content: space-evenly;
+  gap: 0rem;
+  justify-content: space-between;
   padding-inline-start: 1.5rem;
-  padding-inline-end: 0.5rem;
+  padding-inline-end: 0.25rem;
   padding-top: 0.25rem;
   padding-bottom: 0.25rem;
 `;
 
 const StyledFilterIcon = styled(FilterIcon)`
   vertical-align: middle;
+  fill: var(--color-secondary, ${colors.secondary});
 `;
 
 interface ColumnFilterProps<T> {
   filter: Filter<T> | null;
   setFilters: React.Dispatch<React.SetStateAction<Filter<T>[]>>;
+  lastColumn: boolean;
   styles?: FilterStyles;
 }
 

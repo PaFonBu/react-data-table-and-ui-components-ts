@@ -1,3 +1,4 @@
+import styled, { createGlobalStyle } from "styled-components";
 import { Button } from "../ui/Button.ui";
 import { Input } from "../ui/Input.ui";
 import { Select } from "../ui/Select.ui";
@@ -20,7 +21,8 @@ export const Header: React.FC<HeaderProps> = ({
   }: React.ChangeEvent<HTMLSelectElement>) => setRowsPerPage(+value);
 
   return (
-    <div className={`flex justify-end gap-1 ${styles?.container ?? ""}`}>
+    <StyledContainer className={styles?.container ?? ""}>
+      <GlobalStyle />
       {!options?.searchInput?.isDisabled &&
         (options?.searchInput?.component ? (
           <options.searchInput.component
@@ -35,7 +37,9 @@ export const Header: React.FC<HeaderProps> = ({
             onChange={handleChangeSearch}
             styles={{
               ...styles?.searchInput,
-              container: `grow ${styles?.searchInput?.container}`,
+              container: `data-table-header-search-input ${
+                styles?.searchInput?.container ?? ""
+              }`,
             }}
           />
         ))}
@@ -75,12 +79,29 @@ export const Header: React.FC<HeaderProps> = ({
             variant="secondary"
             outline
           >
-            <Reload className="stroke-2" />
+            <StyledReload />
           </Button>
         ))}
-    </div>
+    </StyledContainer>
   );
 };
+
+const GlobalStyle = createGlobalStyle`
+  .data-table-header-search-input {
+    flex-grow: 1;
+  }
+`;
+
+const StyledContainer = styled.div`
+  display: flex;
+  gap: 0.25rem;
+  justify-content: flex-end;
+`;
+
+const StyledReload = styled(Reload)`
+  stroke-width: 2;
+  vertical-align: middle;
+`;
 
 interface HeaderProps {
   searchInput: string | null;

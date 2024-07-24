@@ -6,6 +6,7 @@ import { colors } from "../../colors";
 export const Dropdown: React.FC<DropdownProps> = ({
   buttonContent,
   buttonSize = "md",
+  buttonOutline = false,
   options,
   position = "bottom-right",
   defaultSelectedOption,
@@ -36,9 +37,10 @@ export const Dropdown: React.FC<DropdownProps> = ({
   return (
     <StyledContainer ref={ref} className={`${styles?.container ?? ""}`}>
       <StyledButton
-        styles={{button: styles?.button ?? ""}}
+        styles={{ button: styles?.button ?? "" }}
         onClick={() => setIsDropdownVisible(!isDropdownVisible)}
         size={buttonSize}
+        outline={buttonOutline}
       >
         {buttonContent}
       </StyledButton>
@@ -161,6 +163,7 @@ const StyledListItem = styled.li`
 interface DropdownProps {
   buttonContent: JSX.Element | string;
   buttonSize?: "sm" | "md" | "lg";
+  buttonOutline?: true | false;
   options: { label: string; onClick: () => void }[];
   defaultSelectedOption?: number;
   position?: "top-right" | "top-left" | "bottom-right" | "bottom-left";

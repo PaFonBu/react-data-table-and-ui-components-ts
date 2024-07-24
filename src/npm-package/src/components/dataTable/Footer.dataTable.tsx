@@ -4,6 +4,8 @@ import { ChevronLeft } from "../ui/icons/ChevronLeft.icon";
 import { DoubleChevronLeft } from "../ui/icons/DoubleChevronLeft.icon";
 import { ChevronRight } from "../ui/icons/ChevronRight.icon";
 import { DoubleChevronRight } from "../ui/icons/DoubleChevronRight.icon";
+import styled from "styled-components";
+import { colors } from "../../colors";
 
 export const Footer: React.FC<FooterProps> = ({
   numberOfRows,
@@ -87,48 +89,42 @@ export const Footer: React.FC<FooterProps> = ({
   }, [numberOfPages, currentPage]);
 
   return (
-    <div
-      className={`
-        flex justify-between items-center
-        px-6 py-1
-        rounded-b-lg
-        bg-red-400
-        ${styles?.container ?? ""}`}
-    >
-      <div className={`font-bold ${styles?.visibleRowsIndicator ?? ""}`}>
+    <StyledContainer className={styles?.container ?? ""}>
+      <StyledVisibleRowsIndicator
+        className={styles?.visibleRowsIndicator ?? ""}
+      >
         Showing {currentPage * rowsPerPage - (rowsPerPage - 1)}-
         {numberOfPages === currentPage
           ? currentPage * rowsPerPage -
             (numberOfPages * rowsPerPage - numberOfRows)
           : currentPage * rowsPerPage}{" "}
         of {numberOfRows}
-      </div>
-      <div className="flex items-center">
-        <Button
-          className={`!px-0 ${styles?.pageSelection?.first ?? ""}`}
+      </StyledVisibleRowsIndicator>
+      <StyledPageSelector>
+        <StyledArrowButton
+          className={styles?.pageSelection?.first ?? ""}
           variant="primary"
           onClick={() => setCurrentPage(1)}
         >
-          <DoubleChevronLeft className="!fill-slate-200" />
-        </Button>
-        <Button
-          className={`!px-0 ${styles?.pageSelection?.previous ?? ""}`}
+          <StyledDoubleChevronLeft />
+        </StyledArrowButton>
+        <StyledArrowButton
+          className={styles?.pageSelection?.previous ?? ""}
           variant="primary"
           onClick={() => {
             if (currentPage > 1) setCurrentPage(currentPage - 1);
           }}
         >
-          <ChevronLeft className="!fill-slate-200" />
-        </Button>
+          <StyledChevronLeft />
+        </StyledArrowButton>
         <div>
           {pagesSelector.map((item, index) => (
-            <Button
+            <StyledPageNumberButton
               key={index}
               className={`
-                !px-1.5
                   ${
                     item === currentPage
-                      ? `!text-red-400 pointer-events-none select-none ${
+                      ? `selected ${
                           styles?.pageSelection?.selectedPageNumber ?? ""
                         }`
                       : ""
@@ -139,29 +135,79 @@ export const Footer: React.FC<FooterProps> = ({
               onClick={() => setCurrentPage(item)}
             >
               {item}
-            </Button>
+            </StyledPageNumberButton>
           ))}
         </div>
-        <Button
-          className={`!px-0 ${styles?.pageSelection?.next ?? ""}`}
+        <StyledArrowButton
+          className={styles?.pageSelection?.next ?? ""}
           variant="primary"
           onClick={() => {
             if (currentPage < numberOfPages) setCurrentPage(currentPage + 1);
           }}
         >
-          <ChevronRight className="!fill-slate-200" />
-        </Button>
-        <Button
-          className={`!px-0 ${styles?.pageSelection?.last ?? ""}`}
+          <StyledChevronRight />
+        </StyledArrowButton>
+        <StyledArrowButton
+          className={styles?.pageSelection?.last ?? ""}
           variant="primary"
           onClick={() => setCurrentPage(numberOfPages)}
         >
-          <DoubleChevronRight className="!fill-slate-200" />
-        </Button>
-      </div>
-    </div>
+          <StyledDoubleChevronRight />
+        </StyledArrowButton>
+      </StyledPageSelector>
+    </StyledContainer>
   );
 };
+
+const StyledContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.25rem 1.5rem;
+  background-color: var(--primary-color, ${colors.primary});
+  border-bottom-left-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+`;
+
+const StyledVisibleRowsIndicator = styled.div`
+  font-weight: 500;
+`;
+
+const StyledPageSelector = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const StyledArrowButton = styled(Button)`
+  padding-left: 0;
+  padding-right: 0;
+`;
+
+const StyledPageNumberButton = styled(Button)`
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  &.selected {
+    color: var(--primary-color, ${colors.primary});
+    pointer-events: none;
+    user-select: none;
+  }
+`;
+
+const StyledDoubleChevronLeft = styled(DoubleChevronLeft)`
+  vertical-align: middle;
+`;
+
+const StyledChevronLeft = styled(ChevronLeft)`
+  vertical-align: middle;
+`;
+
+const StyledChevronRight = styled(ChevronRight)`
+  vertical-align: middle;
+`;
+
+const StyledDoubleChevronRight = styled(DoubleChevronRight)`
+  vertical-align: middle;
+`;
 
 interface FooterProps {
   numberOfRows: number;

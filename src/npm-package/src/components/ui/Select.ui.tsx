@@ -101,7 +101,7 @@ const StyledSelect = styled.select`
   background-color: var(--background-color, inherit);
   padding-top: 0.5rem;
   padding-inline-start: 0.625rem;
-  padding-inline-end: 0.625rem;
+  padding-inline-end: 2.5rem;
   padding-bottom: 0.375rem;
   border-radius: 0.5rem;
   color: var(--text-color, ${colors.text});

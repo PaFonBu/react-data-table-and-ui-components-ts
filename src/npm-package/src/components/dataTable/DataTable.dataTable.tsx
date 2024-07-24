@@ -112,6 +112,7 @@ export const DataTable = <T,>({
                       null
                     }
                     setFilters={setFilters}
+                    lastColumn={index === columnsToDisplay.length - 1}
                     styles={styles?.filter}
                   />
                 ))}
@@ -159,6 +160,7 @@ const StyledContainer = styled.div`
 const StyledTable = styled.table`
   width: 100%;
   border-style: hidden;
+  border-collapse: collapse;
 `;
 
 interface DataTableProps<T> {
