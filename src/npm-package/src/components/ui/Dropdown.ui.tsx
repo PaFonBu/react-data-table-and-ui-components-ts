@@ -58,6 +58,7 @@ export const Dropdown: React.FC<DropdownProps> = ({
               onClick={() => {
                 onClick();
                 setSelectedOption(index);
+                setIsDropdownVisible(false);
               }}
             >
               {label}

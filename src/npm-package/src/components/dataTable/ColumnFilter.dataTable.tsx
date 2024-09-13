@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Dropdown, DropdownStyles } from "../ui/Dropdown.ui";
 import { Input, InputStyles } from "../ui/Input.ui";
 import { Filter as FilterIcon } from "../ui/icons/Filter.icon";
@@ -13,10 +13,15 @@ export const ColumnFilter = <T,>({
   lastColumn,
   styles,
 }: ColumnFilterProps<T>) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [filterOption, setFilteredBy] = useState<{
     label: string;
     value: FilterOption;
   }>({ label: "All", value: "ALL" });
+  const [isFilterInputDisabled, setIsFilterInputDisabled] = useState(
+    ["ALL", "BLANK", "NOT_BLANK", "TRUE", "FALSE"].includes(filterOption.value)
+  );
 
   useEffect(() => {
     if (!filter) return;
@@ -27,18 +32,29 @@ export const ColumnFilter = <T,>({
       );
       if (!filterToChange) return values;
       filterToChange.filterOption = filterOption.value;
-      if (
-        ["ALL", "BLANK", "NOT_BLANK", "TRUE", "FALSE"].includes(
-          filterOption.value
-        )
-      )
-        filterToChange.value = null;
+      filterToChange.value = null;
       return [
         ...values.filter((value) => value.field !== filter.field),
         filterToChange,
       ];
     });
   }, [filterOption, setFilters, filter]);
+
+  useEffect(() => {
+    setIsFilterInputDisabled(
+      ["ALL", "BLANK", "NOT_BLANK", "TRUE", "FALSE"].includes(
+        filterOption.value
+      )
+    );
+  }, [filterOption.value]);
+
+  useEffect(() => {
+    (async () => {
+      // Wait for the filter dropdown to close before focusing the input
+      await new Promise((r) => setTimeout(r, 100));
+      if (!isFilterInputDisabled) inputRef.current?.focus();
+    })();
+  }, [isFilterInputDisabled, filterOption.value]);
 
   if (!filter) return null;
   const handleOnChangeFilter = ({
@@ -59,10 +75,11 @@ export const ColumnFilter = <T,>({
   };
 
   return (
-    <StyledTd className={styles?.td ?? ""}>
+    <td className={styles?.td ?? ""}>
       <GlobalStyle />
       <StyledContainer className={styles?.container ?? ""}>
         <Input
+          ref={inputRef}
           styles={{
             ...styles?.input,
             container: `data-table-column-filter-input-container ${styles?.input?.container}`,
@@ -75,10 +92,14 @@ export const ColumnFilter = <T,>({
           }}
           label={filterOption.label}
           onChange={handleOnChangeFilter}
-          disabled={["ALL", "BLANK", "NOT_BLANK", "TRUE", "FALSE"].includes(
-            filterOption.value
-          )}
-          type={filter.type}
+          disabled={isFilterInputDisabled}
+          type={
+            ["ALL", "BLANK", "NOT_BLANK", "TRUE", "FALSE"].includes(
+              filterOption.value
+            )
+              ? "text"
+              : filter.type
+          }
           value={filter.value ?? ""}
         />
         <Dropdown
@@ -109,13 +130,9 @@ export const ColumnFilter = <T,>({
           }}
         />
       </StyledContainer>
-    </StyledTd>
+    </td>
   );
 };
-
-const StyledTd = styled.td`
-  background-color: var(--color-primary-light, ${colors.primaryLight});
-`;
 
 const GlobalStyle = createGlobalStyle`
   .data-table-column-filter-input-container {
@@ -123,7 +140,6 @@ const GlobalStyle = createGlobalStyle`
   }
   .data-table-column-filter-input-input:disabled {
     border-color: var(--color-secondary, ${colors.secondary});
-    /* color: var(--color-text, ${colors.text}); TODO: remove date when All is selected*/
   }
   .data-table-column-filter-input-label {
     filter: brightness(140%);

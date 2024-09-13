@@ -38,7 +38,7 @@ const StyledButton = styled.button`
     ${(props) => (props.disabled ? "" : "filter: brightness(1.25);")}
   }
   &:active {
-    ${(props) => (props.disabled ? "" : "filter: brightness(0.25);")}
+    ${(props) => (props.disabled ? "" : "filter: brightness(0.75);")}
   }
   &.sm {
     font-size: 0.875rem;

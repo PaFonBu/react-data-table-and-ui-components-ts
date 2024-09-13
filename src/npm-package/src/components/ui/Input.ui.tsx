@@ -1,34 +1,35 @@
 import styled from "styled-components";
 import { Error as ErrorIcon } from "../../components/ui/icons/Error.icon";
 import { colors } from "../../colors";
+import { forwardRef } from "react";
 
-export const Input: React.FC<InputProps> = ({
-  error,
-  styles,
-  label,
-  ...props
-}) => (
-  <StyledContainer
-    className={`${label ? "label " : ""}${styles?.container ?? ""}`}
-  >
-    <StyledInput
-      className={`${label ? "label " : ""}${error ? "error " : ""}${
-        styles?.input ?? ""
-      }`}
-      placeholder=""
-      maxLength={999}
-      {...props}
-    />
-    {!!label && (
-      <StyledLabel className={`${error ? "error " : ""}${styles?.label ?? ""}`}>
-        {label}
-      </StyledLabel>
-    )}
-    {!!error && <StyledIcon className={`${label ? "label " : ""}`} />}
-    {!!error && (
-      <StyledError className={`${styles?.error ?? ""}`}>{error}</StyledError>
-    )}
-  </StyledContainer>
+export const Input: React.FC<InputProps> = forwardRef(
+  ({ error, styles, label, ...props }, ref) => (
+    <StyledContainer
+      className={`${label ? "label " : ""}${styles?.container ?? ""}`}
+    >
+      <StyledInput
+        ref={ref}
+        className={`${label ? "label " : ""}${error ? "error " : ""}${
+          styles?.input ?? ""
+        }`}
+        placeholder=""
+        maxLength={999}
+        {...props}
+      />
+      {!!label && (
+        <StyledLabel
+          className={`${error ? "error " : ""}${styles?.label ?? ""}`}
+        >
+          {label}
+        </StyledLabel>
+      )}
+      {!!error && <StyledIcon className={`${label ? "label " : ""}`} />}
+      {!!error && (
+        <StyledError className={`${styles?.error ?? ""}`}>{error}</StyledError>
+      )}
+    </StyledContainer>
+  )
 );
 
 const StyledContainer = styled.div`

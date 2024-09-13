@@ -41,33 +41,39 @@ export const DataTableExample: React.FC = () => {
       header: "Time (seconds)",
       field: "time",
       type: "number",
+      options: { filter: true },
     },
     {
       header: "Moves",
       field: "moves",
       type: "number",
+      options: { filter: true },
     },
     {
       header: "Difficulty",
       field: "difficulty",
       type: "string",
+      options: { filter: true },
       // hidden: true,
     },
     {
       header: "Number of cards",
       field: "number_cards_custom_difficulty",
       type: "number",
+      options: { filter: true },
     },
     {
       header: "Date",
       field: "created_at",
       type: "date",
+      options: { filter: true },
       // hidden: true,
     },
     {
       header: "Colors",
       field: "use_colors",
       type: "boolean",
+      options: { filter: true },
       // hidden: true,
     },
   ];
@@ -77,10 +83,8 @@ export const DataTableExample: React.FC = () => {
       <DataTable<Database["public"]["Tables"]["player_score"]["Row"]>
         columns={columnDefinition}
         rows={playersScores ?? []}
-        // options={{ isMultiSortEnabled: true }}
-        styles={{
-          tableHeader: "bg-red-400",
-        }}
+        options={{}}
+        styles={{}}
       />
     </StyledUI>
   );

@@ -1,3 +1,4 @@
+import { DateTime } from "luxon";
 import {
   FilterOption,
   Columns,
@@ -115,7 +116,6 @@ const filterByOption: {
 } = {
   ALL: () => true,
   BLANK: (_, rowValue) => {
-    console.debug({ rowValue });
     if (rowValue === null || rowValue === undefined || rowValue === "")
       return true;
     return false;
@@ -208,28 +208,36 @@ const filterByOption: {
 };
 
 export const filterRows = <T>(filters: Filter<T>[], row: T) => {
-  // If no filters where applied return true
+  // Check if filters are applied
   const appliedFilters = filters.map((filter) => {
+    // Check the filter options that do not require a filter value
     if (filter.filterOption === "ALL") return true;
     if (filter.filterOption === "BLANK") return true;
     if (filter.filterOption === "NOT_BLANK") return true;
     if (filter.filterOption === "TRUE") return true;
     if (filter.filterOption === "FALSE") return true;
+    // Check the rest that do require a filter value
     return !!filter.value && !!filter.filterOption;
   });
+  // If no filters where applied return true
   if (!appliedFilters.some((filter) => filter)) return true;
   // Evaluate filters on each row
-  const filteredRow = filters.map(
-    ({ field: filterField, value: filterValue, filterOption }) => {
-      const rowValue = row[filterField as keyof T] as string | number | boolean;
-
-      console.debug({ rowValue, filterValue });
-
-      if (!filterOption) return false;
-      return filterByOption[filterOption](filterValue, rowValue);
-    }
-  );
-  console.debug({ filteredRow, appliedFilters });
+  const filteredRow = filters.map(({ field, value, filterOption, type }) => {
+    const rowValue = row[field as keyof T] as string | number | boolean;
+    if (!filterOption) return false;
+    // If the type is a date compare them as iso dates (strings) without time
+    if (
+      type === "date" &&
+      DateTime.fromISO(value?.toString() ?? "").isValid &&
+      DateTime.fromISO(rowValue?.toString() ?? "").isValid
+    )
+      return filterByOption[filterOption](
+        DateTime.fromISO(value?.toString() ?? "").toFormat("yyyy-MM-dd"),
+        DateTime.fromISO(rowValue?.toString() ?? "").toFormat("yyyy-MM-dd")
+      );
+    return filterByOption[filterOption](value, rowValue);
+  });
+  // Check if the row had a filter (this makes no sense, should fix)
   if (filteredRow.toString() === appliedFilters.toString()) return true;
   return false;
 };

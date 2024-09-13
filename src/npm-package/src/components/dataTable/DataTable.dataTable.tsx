@@ -18,6 +18,7 @@ import {
 } from "../../ts/interfaces/dataTable.interface";
 import styled from "styled-components";
 import { Row } from "./Row.dataTable";
+import { colors } from "../../colors";
 
 export const DataTable = <T,>({
   columns,
@@ -103,20 +104,25 @@ export const DataTable = <T,>({
             {columnsToDisplay.some(
               (column) => column?.options?.filter === true
             ) && (
-              <tr>
-                {columnsToDisplay.map((column, index) => (
-                  <ColumnFilter<T>
-                    key={index}
-                    filter={
-                      filters.find((filter) => filter.field === column.field) ||
-                      null
-                    }
-                    setFilters={setFilters}
-                    lastColumn={index === columnsToDisplay.length - 1}
-                    styles={styles?.filter}
-                  />
-                ))}
-              </tr>
+              <StyledFilterTr>
+                {columnsToDisplay.map((column, index) =>
+                  column?.options?.filter ? (
+                    <ColumnFilter<T>
+                      key={index}
+                      filter={
+                        filters.find(
+                          (filter) => filter.field === column.field
+                        ) || null
+                      }
+                      setFilters={setFilters}
+                      lastColumn={index === columnsToDisplay.length - 1}
+                      styles={styles?.filter}
+                    />
+                  ) : (
+                    <td></td>
+                  )
+                )}
+              </StyledFilterTr>
             )}
           </thead>
           <tbody>
@@ -150,6 +156,10 @@ export const DataTable = <T,>({
     </StyledContainer>
   );
 };
+
+const StyledFilterTr = styled.tr`
+  background-color: var(--color-primary-light, ${colors.primaryLight});
+`;
 
 const StyledContainer = styled.div`
   display: flex;
@@ -191,4 +201,4 @@ interface DataTableProps<T> {
 
 // TODO: mobile friendly
 // TODO: refetch
-// TODO: fix footer when table overflows
+// TODO: loading spinner should be inside the table
