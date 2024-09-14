@@ -19,10 +19,13 @@ import {
 import styled from "styled-components";
 import { Row } from "./Row.dataTable";
 import { colors } from "../../colors";
+import { Spinner } from "../ui/Spinner.ui";
 
 export const DataTable = <T,>({
   columns,
   rows,
+  refetch,
+  isDataLoading,
   options,
   styles,
 }: DataTableProps<T>) => {
@@ -84,6 +87,7 @@ export const DataTable = <T,>({
         setRowsPerPage={setRowsPerPage}
         options={options}
         styles={styles?.header}
+        refetch={refetch}
       />
       <div className={styles?.tableContainer ?? ""}>
         <StyledTable className={styles?.table ?? ""}>
@@ -125,22 +129,44 @@ export const DataTable = <T,>({
               </StyledFilterTr>
             )}
           </thead>
-          <tbody>
-            {(!options?.paginationSelect?.isDisabled
-              ? paginatedRows
-              : rowsToDisplay
-            ).map((row, rowIndex) => (
-              <Row
-                row={row}
-                columns={columns}
-                key={rowIndex}
-                styles={{
-                  tableRow: styles?.tableRow,
-                  tableCell: styles?.tableCell,
-                }}
-              />
-            ))}
-          </tbody>
+          {isDataLoading ? (
+            <tbody>
+              <tr>
+                <td colSpan={columnsToDisplay.length}>
+                  <StyledNoDataMessage>
+                    {options?.loadingMessage ?? <Spinner />}
+                  </StyledNoDataMessage>
+                </td>
+              </tr>
+            </tbody>
+          ) : rowsToDisplay.length === 0 ? (
+            <tbody>
+              <tr>
+                <td colSpan={columnsToDisplay.length}>
+                  <StyledNoDataMessage>
+                    {options?.noDataMessage ?? "No data to display"}
+                  </StyledNoDataMessage>
+                </td>
+              </tr>
+            </tbody>
+          ) : (
+            <tbody>
+              {(!options?.paginationSelect?.isDisabled
+                ? paginatedRows
+                : rowsToDisplay
+              ).map((row, rowIndex) => (
+                <Row
+                  row={row}
+                  columns={columns}
+                  key={rowIndex}
+                  styles={{
+                    tableRow: styles?.tableRow,
+                    tableCell: styles?.tableCell,
+                  }}
+                />
+              ))}
+            </tbody>
+          )}
         </StyledTable>
         {!options?.paginationSelect?.isDisabled && (
           <Footer
@@ -156,6 +182,12 @@ export const DataTable = <T,>({
     </StyledContainer>
   );
 };
+
+const StyledNoDataMessage = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 1rem;
+`;
 
 const StyledFilterTr = styled.tr`
   background-color: var(--color-primary-light, ${colors.primaryLight});
@@ -176,11 +208,15 @@ const StyledTable = styled.table`
 interface DataTableProps<T> {
   columns: Columns<T>[];
   rows: T[];
+  refetch?: () => void;
+  isDataLoading?: boolean;
   options?: {
     searchInput?: SearchInputOptions;
     reloadButton?: ReloadButtonOptions;
     paginationSelect?: PaginationSelectOptions;
     isMultiSortEnabled?: boolean;
+    loadingMessage?: JSX.Element | string;
+    noDataMessage?: JSX.Element | string;
     // TODO: exportCsv?: boolean;
     // TODO: exportXlsx?: boolean;
     // TODO: backendPagination?: boolean
@@ -200,5 +236,3 @@ interface DataTableProps<T> {
 }
 
 // TODO: mobile friendly
-// TODO: refetch
-// TODO: loading spinner should be inside the table

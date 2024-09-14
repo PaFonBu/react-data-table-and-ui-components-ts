@@ -9,6 +9,7 @@ export const Header: React.FC<HeaderProps> = ({
   setSearchInput,
   rowsPerPage,
   setRowsPerPage,
+  refetch,
   options,
   styles,
 }) => {
@@ -19,6 +20,11 @@ export const Header: React.FC<HeaderProps> = ({
   const handleChangeRowsPerPage = ({
     target: { value },
   }: React.ChangeEvent<HTMLSelectElement>) => setRowsPerPage(+value);
+
+  const handleClickRefetch = () => {
+    if (!refetch) return;
+    refetch();
+  };
 
   return (
     <StyledContainer className={styles?.container ?? ""}>
@@ -78,6 +84,7 @@ export const Header: React.FC<HeaderProps> = ({
             size="lg"
             variant="secondary"
             outline
+            onClick={handleClickRefetch}
           >
             <StyledReload />
           </Button>
@@ -108,6 +115,7 @@ interface HeaderProps {
   setSearchInput: React.Dispatch<React.SetStateAction<string | null>>;
   rowsPerPage: number;
   setRowsPerPage: React.Dispatch<React.SetStateAction<number>>;
+  refetch?: () => void;
   options?: {
     searchInput?: SearchInputOptions;
     reloadButton?: ReloadButtonOptions;
