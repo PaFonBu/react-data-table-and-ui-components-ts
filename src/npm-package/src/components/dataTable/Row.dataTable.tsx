@@ -8,11 +8,12 @@ export const Row = <T,>({ row, columns, styles }: RowProps<T>) => (
     {!!row &&
       columns
         .filter((column) => !column.hidden)
-        .map(({ field, type }, propIndex) => (
+        .map(({ field, type, options }, propIndex) => (
           <Cell
             row={row}
             field={field}
             type={type}
+            columnOptions={options}
             styles={styles?.tableCell}
             key={propIndex}
           />

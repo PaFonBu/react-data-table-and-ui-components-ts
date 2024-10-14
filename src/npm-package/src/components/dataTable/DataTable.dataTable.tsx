@@ -200,6 +200,7 @@ const StyledContainer = styled.div`
 `;
 
 const StyledTable = styled.table`
+  table-layout: fixed;
   width: 100%;
   border-style: hidden;
   border-collapse: collapse;

@@ -6,7 +6,7 @@ export interface Columns<T> {
   options?: {
     sort?: boolean;
     filter?: boolean;
-    // TODO: width?: number;
+    width?: string;
     // TODO: cellFormatter: (cell, row, column, data) => string
     // TODO: headerFormatter: (cell, row, column, data) => string
   };
