@@ -7,11 +7,15 @@ export const Layout: React.FC = () => {
 
   return (
     <StyledContainer>
-      <h1>React data table and ui components</h1>
+      <StyledTitle>React data table and ui components</StyledTitle>
       <StyledNavigation>
         {/* <Button size="lg" onClick={() => navigate("/")}>Home</Button> */}
-        <Button size="lg" onClick={() => navigate("/data-table")}>Data table</Button>
-        <Button size="lg" onClick={() => navigate("/ui-components")}>UI Components</Button>
+        <Button size="lg" onClick={() => navigate("/data-table")}>
+          Data table
+        </Button>
+        <Button size="lg" onClick={() => navigate("/ui-components")}>
+          UI Components
+        </Button>
       </StyledNavigation>
       <StyledContent>
         <Outlet />
@@ -20,9 +24,13 @@ export const Layout: React.FC = () => {
   );
 };
 
+const StyledTitle = styled.h1`
+  text-align: center;
+  margin: 0;
+  margin-bottom: 2rem;
+`;
+
 const StyledContent = styled.div`
-  margin-right: 2rem;
-  margin-left: 2rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -30,15 +38,18 @@ const StyledContent = styled.div`
 
 const StyledNavigation = styled.div`
   display: flex;
+  justify-content: center;
+  align-items: center;
   gap: 1rem;
 `;
 
 const StyledContainer = styled.div`
-  margin-left: 2rem;
-  margin-right: 2rem;
+  margin: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   gap: 1rem;
+  @media (min-width: 1240px) {
+    margin-left: 8rem;
+    margin-right: 8rem;
+  }
 `;

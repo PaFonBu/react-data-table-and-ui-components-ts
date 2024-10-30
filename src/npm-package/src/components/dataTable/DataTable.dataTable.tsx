@@ -89,7 +89,7 @@ export const DataTable = <T,>({
         styles={styles?.header}
         refetch={refetch}
       />
-      <div className={styles?.tableContainer ?? ""}>
+      <StyledTableContainer className={styles?.tableContainer ?? ""}>
         <StyledTable className={styles?.table ?? ""}>
           <thead>
             <tr className={styles?.columnHeaders ?? ""}>
@@ -168,17 +168,17 @@ export const DataTable = <T,>({
             </tbody>
           )}
         </StyledTable>
-        {!options?.paginationSelect?.isDisabled && (
-          <Footer
-            numberOfRows={rowsToDisplay.length}
-            rowsPerPage={rowsPerPage}
-            numberOfPages={numberOfPages}
-            currentPage={currentPage}
-            setCurrentPage={setCurrentPage}
-            styles={styles?.footer}
-          />
-        )}
-      </div>
+      </StyledTableContainer>
+      {!options?.paginationSelect?.isDisabled && (
+        <Footer
+          numberOfRows={rowsToDisplay.length}
+          rowsPerPage={rowsPerPage}
+          numberOfPages={numberOfPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+          styles={styles?.footer}
+        />
+      )}
     </StyledContainer>
   );
 };
@@ -199,8 +199,11 @@ const StyledContainer = styled.div`
   gap: 0.25rem;
 `;
 
+const StyledTableContainer = styled.div`
+  overflow-x: auto;
+`;
+
 const StyledTable = styled.table`
-  table-layout: fixed;
   width: 100%;
   border-style: hidden;
   border-collapse: collapse;
@@ -235,5 +238,3 @@ interface DataTableProps<T> {
     filter?: FilterStyles;
   };
 }
-
-// TODO: mobile friendly

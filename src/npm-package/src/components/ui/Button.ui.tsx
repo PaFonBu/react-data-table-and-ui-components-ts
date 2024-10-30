@@ -43,17 +43,17 @@ const StyledButton = styled.button`
   &.sm {
     font-size: 0.875rem;
     line-height: 1.25rem;
-    height: 2rem;
+    min-height: 2rem;
   }
   &.md {
     font-size: 1rem;
     line-height: 1.5rem;
-    height: 2.5rem;
+    min-height: 2.5rem;
   }
   &.lg {
     font-size: 1.125rem;
     line-height: 1.75rem;
-    height: 52px;
+    min-height: 52px;
   }
   &.primary {
     background-color: var(--primary-color, ${colors.primary});

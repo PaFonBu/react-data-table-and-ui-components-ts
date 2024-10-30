@@ -167,6 +167,9 @@ const StyledContainer = styled.div`
   background-color: var(--primary-color, ${colors.primary});
   border-bottom-left-radius: 0.5rem;
   border-bottom-right-radius: 0.5rem;
+  @media (max-width: 720px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const StyledVisibleRowsIndicator = styled.div`

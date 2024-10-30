@@ -103,6 +103,9 @@ const StyledContainer = styled.div`
   display: flex;
   gap: 0.25rem;
   justify-content: flex-end;
+  @media (max-width: 720px) {
+    flex-direction: column-reverse;
+  }
 `;
 
 const StyledReload = styled(Reload)`

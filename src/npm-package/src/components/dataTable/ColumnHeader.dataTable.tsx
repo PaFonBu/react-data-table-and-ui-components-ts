@@ -40,7 +40,10 @@ export const ColumnHeader = <T,>({
   };
 
   return (
-    <StyledTh width={column.options?.width} className={styles?.container ?? ""}>
+    <StyledTh
+      columnWidth={column.options?.width}
+      className={styles?.container ?? ""}
+    >
       <StyledHeader className={styles?.header ?? ""}>
         {column.header}
       </StyledHeader>
@@ -66,10 +69,10 @@ export const ColumnHeader = <T,>({
   );
 };
 
-const StyledTh = styled.th<{ width: string }>`
+const StyledTh = styled.th<{ columnWidth: string }>`
   position: relative;
   background-color: var(--primary-color, ${colors.primary});
-  width: ${(props) => props.width};
+  width: ${(props) => props.columnWidth};
   &:first-child {
     border-top-left-radius: 0.5rem;
   }

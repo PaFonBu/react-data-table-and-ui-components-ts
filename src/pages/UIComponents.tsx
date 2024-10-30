@@ -39,6 +39,7 @@ export const UIComponents: React.FC = () => (
         </Button>
       </StyledCol>
     </StyledRow>
+    <br />
     <StyledRow>
       <StyledCol>
         <Button variant="primary" outline>
@@ -215,6 +216,7 @@ export const UIComponents: React.FC = () => (
 
     <h3>Spinner</h3>
     <Spinner />
+    <br />
   </StyledUI>
 );
 
@@ -222,6 +224,9 @@ const StyledRow = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  @media (max-width: 1240px) {
+    flex-direction: column;
+  }
   gap: 3rem;
 `;
 

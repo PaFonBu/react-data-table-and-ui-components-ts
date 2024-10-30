@@ -8,7 +8,7 @@ export const Cell = <T,>({
   columnOptions,
   styles,
 }: CellProps<T>) => (
-  <StyledDataTd width={columnOptions?.width} className={styles ?? ""}>
+  <StyledDataTd columnWidth={columnOptions?.width} className={styles ?? ""}>
     {type === "boolean"
       ? (row[field as keyof T] as boolean)
         ? "true"
@@ -17,9 +17,9 @@ export const Cell = <T,>({
   </StyledDataTd>
 );
 
-const StyledDataTd = styled.td<{ width?: string }>`
+const StyledDataTd = styled.td<{ columnWidth?: string }>`
   padding: 1rem 1.5rem;
-  width: ${(props) => props.width};
+  width: ${(props) => props.columnWidth};
   overflow-x: hidden;
   text-overflow: ellipsis;
 `;
